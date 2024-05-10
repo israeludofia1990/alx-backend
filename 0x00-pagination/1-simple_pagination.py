@@ -8,7 +8,7 @@ from typing import List
 def index_range(page, page_size):
     '''return a tuple of size two containing a start index and an end index
         corresponding to the range of indexes to return in a list for those
-        particular pagination parameters.
+        particular pagination parameters
     '''
     if page:
         start_index = (page - 1) * page_size
@@ -34,7 +34,6 @@ class Server:
             self.__dataset = dataset[1:]
 
         return self.__dataset
-
 
     def get_page(self, page: int = 1, page_size: int = 10) -> List[List]:
         """
