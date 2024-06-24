@@ -2,7 +2,7 @@
 """ Simple pagination """
 import csv
 import math
-from typing import List
+from typing import List, Dict, Any
 
 
 def index_range(page, page_size):
