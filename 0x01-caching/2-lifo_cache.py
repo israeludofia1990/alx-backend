@@ -4,7 +4,7 @@ from collections import OrderedDict
 from base_caching import BaseCaching
 
 
-class FIFOCache(BaseCaching):
+class LIFOCache(BaseCaching):
     '''a class FIFOCache that inherits from
     BaseCaching and is a caching system'''
     def __init__(self):
@@ -13,16 +13,15 @@ class FIFOCache(BaseCaching):
         self.cache_data = OrderedDict()
 
     def put(self, key, item):
-        '''assigns a value to a given key'''
+        '''Adds an item in the cache.'''
         if key is None or item is None:
             return
-        if key in self.cache_data:
-            self.cache_data.pop(key)
-        elif len(self.cache_data) >= BaseCaching.MAX_ITEMS:
-            oldest_key, _ = self.cache_data.popitem(last=False)
-            print("DISCARD {}".format(oldest_key))
-
+        if key not in self.cache_data:
+            if len(self.cache_data) + 1 > BaseCaching.MAX_ITEMS:
+                last_key, _ = self.cache_data.popitem(True)
+                print("DISCARD:", last_key)
         self.cache_data[key] = item
+        self.cache_data.move_to_end(key, last=True)
 
     def get(self, key):
         '''return the value in `self.cache_data` linked to key '''
