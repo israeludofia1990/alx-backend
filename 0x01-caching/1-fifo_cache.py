@@ -13,14 +13,16 @@ class FIFOCache(BaseCaching):
         self.cache_data = OrderedDict()
 
     def put(self, key, item):
-        '''assigns a value to a given key'''
+        '''assign to the dictionary `self.cache_data` the
+           `item` value for the key `key`
+        '''
+
         if key is None or item is None:
             return
-        if key in self.cache_data:
-            self.cache_data.pop(key)
-        elif len(self.cache_data) >= BaseCaching.MAX_ITEMS:
-            oldest_key, _ = self.cache_data.popitem(last=False)
-            print("DISCARD {}".format(oldest_key))
+
+        if len(self.cache_data) >= BaseCaching.MAX_ITEMS:
+            first_key, _ = self.cache_data.popitem(last=False)
+            print(f"DISCARD: {first_key}")
 
         self.cache_data[key] = item
 
