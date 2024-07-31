@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 import redis from 'redis';
 
 const client = redis.createClient({
